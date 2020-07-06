@@ -1,21 +1,40 @@
 import React from "react"
-import { Flex, Box, useColorMode, IconButton } from "@chakra-ui/core"
-
+import {
+  Flex,
+  Box,
+  useColorMode,
+  IconButton,
+  Button,
+  Image
+} from "@chakra-ui/core"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import shower from "../images/Shower.png"
 
 const IndexPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Layout>
-      <SEO title="Home" />
       <Flex minH="100vh" w="100%">
+        <SEO title="Home" />
+
         <Box
           backgroundColor={colorMode === "light" ? "gray.100" : "gray.800"}
           w="25%"
         >
-          sidebar
+          <nav>
+            <Button variantColor="gray">Search for places</Button>
+            <IconButton
+              variantColor="gray"
+              aria-label="Search database"
+              icon="compass"
+            />
+          </nav>
+          <Box>
+            <Image src={shower} />
+          </Box>
         </Box>
+
         <Box
           backgroundColor={colorMode === "light" ? "white" : "gray.900"}
           w="75%"
