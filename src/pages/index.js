@@ -5,7 +5,9 @@ import {
   useColorMode,
   IconButton,
   Button,
-  Image
+  Image,
+  Heading,
+  Text,
 } from "@chakra-ui/core"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -33,6 +35,13 @@ const IndexPage = () => {
           <Box>
             <Image src={shower} />
           </Box>
+          <Heading as="h1">15℃</Heading>
+          <Heading as="h2">Shower</Heading>
+          <Flex>
+            <Text>Today</Text>
+            <Text>•</Text>
+            <Text>Fri, 5 Jun</Text>
+          </Flex>
         </Box>
 
         <Box
