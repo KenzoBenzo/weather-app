@@ -13,6 +13,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: "gatsby-openweathermap",
+      options: {
+        appid: process.env.OPEN_WEATHER_API,
+        q: "York",
+        units: "metric",
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
