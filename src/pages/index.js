@@ -60,10 +60,9 @@ const IndexPage = () => {
               Search for places
             </Button>
             <IconButton
-              isRound
-              variantColor="blue"
-              aria-label="Search database"
-              icon="compass"
+              onClick={toggleColorMode}
+              icon={colorMode === "light" ? "moon" : "sun"}
+              variantColor={colorMode === "light" ? "blue" : "yellow"}
             />
           </Flex>
           <Box
@@ -124,13 +123,24 @@ const IndexPage = () => {
         >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerCloseButton />
+            <Stack isInline p={4}>
+              <Button
+                variantColor="blue"
+                variant="ghost"
+                aria-label="Search database"
+              >
+                <Icon name="compass" mr={2} />
+                my location
+              </Button>
+              <DrawerCloseButton />
+            </Stack>
             <Stack isInline mt={16} p={4} alignItems="center">
               <DrawerBody pl="2px" pr={4}>
                 <Input placeholder="search location" />
               </DrawerBody>
               <Button variantColor="blue">Search</Button>
             </Stack>
+
             <Stack p={4}>
               <Button>Ljubljana</Button>
               <Button>Grosuplje</Button>
@@ -144,13 +154,6 @@ const IndexPage = () => {
           px={[8, 8, 16, 16, 48]}
           py={8}
         >
-          <Box justifyContent="flex-end" display="flex" mb={16}>
-            <IconButton
-              onClick={toggleColorMode}
-              icon={colorMode === "light" ? "moon" : "sun"}
-            />
-          </Box>
-
           <SimpleGrid columns={5} rows="auto-fit" spacing={8} overflow="auto">
             <DailyCard day="Tomorrow" image={sleet} high="16°C" low="11°C" />
             <DailyCard day="Sun, 7 Jun" image={snow} high="16°C" low="11°C" />
