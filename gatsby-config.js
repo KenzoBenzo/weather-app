@@ -21,6 +21,17 @@ module.exports = {
     //     units: "metric",
     //   },
     // },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // Arbitrary name for the remote schema Query type
+        typeName: "OpenWeather",
+        // Field under which the remote schema will be accessible. You'll use this in your Gatsby query
+        fieldName: "allWeather",
+        // Url to query from
+        url: "https://graphql-weather-app.herokuapp.com/",
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

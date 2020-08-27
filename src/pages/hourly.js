@@ -24,6 +24,8 @@ import SEO from "../components/seo"
 import shower from "../images/Shower.png"
 import Background from "../images/Cloud-background.png"
 import BackgroundLight from "../images/Cloud-Background-Light.png"
+import DailyCard from "../components/dailyCard"
+import { useStaticQuery, graphql } from "gatsby"
 import sleet from "../images/Sleet.png"
 import thunderstorm from "../images/Thunderstorm.png"
 import clear from "../images/Clear.png"
@@ -34,51 +36,12 @@ import lightCloud from "../images/LightCloud.png"
 //import lightRain from "../images/LightRain.png"
 import snow from "../images/Snow.png"
 import HighlightCard from "../components/highlightCard"
-import DailyCard from "../components/dailyCard"
-import { useStaticQuery, graphql } from "gatsby"
 
-const IndexPage = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+const HourlyPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { colorMode, toggleColorMode } = useColorMode()
   const btnRef = useRef()
   const date = new Date()
-  const data = useStaticQuery(
-    graphql`
-      query {
-        allWeather {
-          weatherForecast(city: "Kansas City") {
-            cod
-            message
-            cnt
-            tempFAvg
-            tempCAvg
-            pressureAvg
-            humidityAvg
-            list {
-              precipProbability
-              wind {
-                speed
-              }
-              weather {
-                main
-                description
-              }
-              main {
-                maxTempC
-                minTempC
-                pressure
-              }
-              dateText
-              visibility
-            }
-            city {
-              name
-            }
-          }
-        }
-      }
-    `
-  )
 
   return (
     <Layout>
@@ -121,7 +84,7 @@ const IndexPage = () => {
           </Box>
           <Flex justifyContent="center" alignItems="baseline">
             <Heading as="h1" fontSize="144px" fontWeight={500}>
-              {Math.round(data.allWeather.weatherForecast.tempCAvg)}
+              bla
             </Heading>
             <Text fontSize="5xl" color="gray.500">
               ℃
@@ -134,7 +97,7 @@ const IndexPage = () => {
             fontWeight={600}
             as="h2"
           >
-            {data.allWeather.weatherForecast.list[0].weather[0].description}
+            bla
           </Heading>
           <Stack isInline justifyContent="center" mt="128px" color="gray.500">
             <Text>Today</Text>
@@ -153,10 +116,9 @@ const IndexPage = () => {
             alignItems="center"
           >
             <Icon name="pin" />
-            <Text>{data.allWeather.weatherForecast.city.name}</Text>
+            <Text>bla</Text>
           </Stack>
         </Box>
-
         <Drawer
           isOpen={isOpen}
           placement="left"
@@ -197,84 +159,54 @@ const IndexPage = () => {
           px={[8, 8, 16, 16, 48]}
           py={8}
         >
-          <SimpleGrid columns={5} rows="auto-fit" spacing={8} overflow="auto">
+          <SimpleGrid columns={4} rows={2} spacing={8} overflow="auto">
             <DailyCard
-              day="Tomorrow"
+              day="00:00-3:00"
               image={sleet}
               high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
               low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
             <DailyCard
-              day="Sun, 7 Jun"
+              day="3:00-6:00"
               image={snow}
               high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
               low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
             <DailyCard
-              day="Mon, 8 Jun"
+              day="6:00-9:00"
               image={thunderstorm}
               high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
               low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
             <DailyCard
-              day="Mon, 8 Jun"
+              day="9:00-12:00"
               image={lightCloud}
               high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
               low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
             <DailyCard
-              day="Mon, 8 Jun"
+              day="12:00-15:00"
               image={clear}
+              high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
+              low="70%"
+            />
+            <DailyCard
+              day="15:00-18:00"
+              image={thunderstorm}
               high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
               low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
-          </SimpleGrid>
-          <Heading as="h1" mt={16} fontSize={["24px", "32px"]}>
-            Today's Highlights
-          </Heading>
-
-          <SimpleGrid
-            columns={2}
-            rows={2}
-            spacing={12}
-            mt={8}
-            minChildWidth={["234px", "234px", "234px", "234px", "324px"]}
-          >
-            <HighlightCard
-              condition="Wind status"
-              value={Math.round(
-                data.allWeather.weatherForecast.list[0].wind.speed
-              )}
-              label="mph"
-            >
-              <Stack isInline alignItems="center">
-                <Box
-                  size="32px"
-                  backgroundColor="gray.700"
-                  rounded="full"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Icon name="west" />
-                </Box>
-                <Text>WSW</Text>
-              </Stack>
-            </HighlightCard>
-            <HighlightCard
-              condition="Humidity"
-              value={Math.round(data.allWeather.weatherForecast.humidityAvg)}
-              label="%"
+            <DailyCard
+              day="18:00-21:00"
+              image={lightCloud}
+              high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
+              low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
-            <HighlightCard
-              condition="Visibility"
-              value={data.allWeather.weatherForecast.list[0].visibility / 1000}
-              label="km"
-            />
-            <HighlightCard
-              condition="Air pressure"
-              value={Math.round(data.allWeather.weatherForecast.pressureAvg)}
-              label="mb"
+            <DailyCard
+              day="21:00-00:00"
+              image={clear}
+              high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
+              low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
             />
           </SimpleGrid>
         </Box>
@@ -283,4 +215,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default HourlyPage
