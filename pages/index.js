@@ -1,86 +1,77 @@
-import React from "react"
-import { Box, Heading, Text, Stack, Icon, SimpleGrid } from "@chakra-ui/core"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import sleet from "../images/Sleet.png"
-import thunderstorm from "../images/Thunderstorm.png"
-import clear from "../images/Clear.png"
-import lightCloud from "../images/LightCloud.png"
-import snow from "../images/Snow.png"
-import HighlightCard from "../components/highlightCard"
-import DailyCard from "../components/dailyCard"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import { Box, Heading, Text, Stack, Icon, SimpleGrid } from "@chakra-ui/react";
+import HighlightCard from "../components/highlightCard";
+import DailyCard from "../components/dailyCard";
 
 const IndexPage = () => {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        allWeather {
-          weatherForecast(city: "Kansas City") {
-            cod
-            message
-            cnt
-            tempFAvg
-            tempCAvg
-            pressureAvg
-            humidityAvg
-            list {
-              precipProbability
-              wind {
-                speed
-              }
-              weather {
-                main
-                description
-              }
-              main {
-                maxTempC
-                minTempC
-                pressure
-              }
-              dateText
-              visibility
-            }
-            city {
-              name
-            }
-          }
-        }
-      }
-    `
-  )
+  // const data = useStaticQuery(
+  //   graphql`
+  //     query {
+  //       allWeather {
+  //         weatherForecast(city: "Kansas City") {
+  //           cod
+  //           message
+  //           cnt
+  //           tempFAvg
+  //           tempCAvg
+  //           pressureAvg
+  //           humidityAvg
+  //           list {
+  //             precipProbability
+  //             wind {
+  //               speed
+  //             }
+  //             weather {
+  //               main
+  //               description
+  //             }
+  //             main {
+  //               maxTempC
+  //               minTempC
+  //               pressure
+  //             }
+  //             dateText
+  //             visibility
+  //           }
+  //           city {
+  //             name
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `
+  // )
 
   return (
-    <Layout>
-      <SEO title="Home" />
+    <>
       <SimpleGrid columns={5} rows="auto-fit" spacing={8} overflow="auto">
         <DailyCard
           day="Tomorrow"
-          image={sleet}
+          image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
           high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
           low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
         />
         <DailyCard
           day="Sun, 7 Jun"
-          image={snow}
+          image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
           high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
           low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
         />
         <DailyCard
           day="Mon, 8 Jun"
-          image={thunderstorm}
+          image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
           high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
           low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
         />
         <DailyCard
           day="Mon, 8 Jun"
-          image={lightCloud}
+          image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
           high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
           low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
         />
         <DailyCard
           day="Mon, 8 Jun"
-          image={clear}
+          image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
           high={/*Math.round(allWeather.cityWeather.max_temp)*/ 0}
           low={/*Math.round(allWeather.cityWeather.min_temp)*/ 0}
         />
@@ -98,7 +89,9 @@ const IndexPage = () => {
       >
         <HighlightCard
           condition="Wind status"
-          value={Math.round(data.allWeather.weatherForecast.list[0].wind.speed)}
+          value={
+            /*Math.round(data.allWeather.weatherForecast.list[0].wind.speed)*/ 0
+          }
           label="mph"
         >
           <Stack isInline alignItems="center">
@@ -117,22 +110,24 @@ const IndexPage = () => {
         </HighlightCard>
         <HighlightCard
           condition="Humidity"
-          value={Math.round(data.allWeather.weatherForecast.humidityAvg)}
+          value={/*Math.round(data.allWeather.weatherForecast.humidityAvg)*/ 0}
           label="%"
         />
         <HighlightCard
           condition="Visibility"
-          value={data.allWeather.weatherForecast.list[0].visibility / 1000}
+          value={
+            /*data.allWeather.weatherForecast.list[0].visibility / 1000*/ 0
+          }
           label="km"
         />
         <HighlightCard
           condition="Air pressure"
-          value={Math.round(data.allWeather.weatherForecast.pressureAvg)}
+          value={/*Math.round(data.allWeather.weatherForecast.pressureAvg)*/ 0}
           label="mb"
         />
       </SimpleGrid>
-    </Layout>
-  )
-}
+    </>
+  );
+};
 
-export default IndexPage
+export default IndexPage;

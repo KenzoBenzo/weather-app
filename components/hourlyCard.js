@@ -1,8 +1,8 @@
-import React from "react"
-import { Box, useColorMode, Stack, Text, Image } from "@chakra-ui/core"
+import React from "react";
+import { Box, useColorMode, Stack, Text, Image } from "@chakra-ui/react";
 
 const HourlyCard = ({ day, image, high, low, precipitation }) => {
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
   return (
     <Stack>
       <Box
@@ -32,7 +32,7 @@ const HourlyCard = ({ day, image, high, low, precipitation }) => {
         {precipitation}
       </Box>
     </Stack>
-  )
-}
+  );
+};
 
-export default HourlyCard
+export default HourlyCard;

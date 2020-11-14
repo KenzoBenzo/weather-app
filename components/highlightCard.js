@@ -1,8 +1,15 @@
-import React from "react"
-import { Box, useColorMode, Stack, Text, Flex, Progress } from "@chakra-ui/core"
+import React from "react";
+import {
+  Box,
+  useColorMode,
+  Stack,
+  Text,
+  Flex,
+  Progress,
+} from "@chakra-ui/react";
 
 const HighlightCard = ({ condition, value, label, children }) => {
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
   return (
     <>
       <Box
@@ -40,7 +47,7 @@ const HighlightCard = ({ condition, value, label, children }) => {
         ) : null}
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default HighlightCard
+export default HighlightCard;

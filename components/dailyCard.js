@@ -1,9 +1,8 @@
-import React from "react"
-import { Box, useColorMode, Stack, Text, Image } from "@chakra-ui/core"
-import { Link } from "gatsby"
+import React from "react";
+import { Box, useColorMode, Stack, Text, Image, Link } from "@chakra-ui/react";
 
 const DailyCard = ({ day, image, high, low }) => {
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
   return (
     <Link to="/hourly">
       <Box
@@ -21,7 +20,7 @@ const DailyCard = ({ day, image, high, low }) => {
         </Stack>
       </Box>
     </Link>
-  )
-}
+  );
+};
 
-export default DailyCard
+export default DailyCard;
