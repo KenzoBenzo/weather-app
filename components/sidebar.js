@@ -18,11 +18,49 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AddIcon, MoonIcon, SunIcon, ViewIcon } from "@chakra-ui/icons";
+import { request, gql } from "graphql-request";
+import useSWR from "swr";
+
+const fetcher = async (query) => {
+  const res = await request(
+    "https://graphql-weather-app.herokuapp.com/",
+    query
+  );
+
+  if (!res.ok) {
+    const error = new Error("sidebar query failed!");
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+
+  return res.json();
+};
 
 const Sidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const date = new Date();
+
+  const { data, error } = useSWR(
+    `{
+    weatherForecast(city: "Kansas City") {
+      tempCAvg
+      list {
+        weather {
+          main
+          description
+        }
+      }
+      city {
+        name
+      }
+    }
+  }`,
+    fetcher
+  );
+  console.log(data);
   return (
     <>
       <Box
@@ -63,8 +101,7 @@ const Sidebar = () => {
         </Box>
         <Flex justifyContent="center" alignItems="baseline">
           <Heading as="h1" fontSize="144px" fontWeight={500}>
-            13
-            {/* {Math.round(data.allWeather.weatherForecast.tempCAvg)} */}
+            2 {/* {Math.round(data.weatherForecast.tempCAvg)} */}
           </Heading>
           <Text fontSize="5xl" color="gray.500">
             ℃
@@ -77,17 +114,15 @@ const Sidebar = () => {
           fontWeight={600}
           as="h2"
         >
-          Cloudy
-          {/* {data.allWeather.weatherForecast.list[0].weather[0].description} */}
+          cloudy {/* {data.weatherForecast.list[0].weather[0].description} */}
         </Heading>
         <Stack isInline justifyContent="center" mt="128px" color="gray.500">
           <Text>Today</Text>
           <Text>•</Text>
           <Text>
-            November 14th
-            {/* {date.toLocaleString("default", { month: "long" }) +
-                  ` ` +
-                  date.getDate()} */}
+            {date.toLocaleString("default", { month: "long" }) +
+              ` ` +
+              date.getDate()}
           </Text>
         </Stack>
         <Stack
@@ -98,7 +133,7 @@ const Sidebar = () => {
           alignItems="center"
         >
           <ViewIcon />
-          <Text>Kansas City</Text>
+          <Text>bla{/*data.weatherForecast.city.name*/}</Text>
         </Stack>
       </Box>
 

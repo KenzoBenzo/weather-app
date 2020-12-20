@@ -1,27 +1,44 @@
 import React from "react";
 import { SimpleGrid } from "@chakra-ui/react";
 import HourlyCard from "../components/hourlyCard";
+import { request, gql } from "graphql-request";
+import useSWR from "swr";
+
+const fetcher = async (query) => {
+  const res = await request(
+    "https://graphql-weather-app.herokuapp.com/",
+    query
+  );
+
+  if (!res.ok) {
+    const error = new Error("hourly query failed!");
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+
+  return res.json();
+};
 
 const HourlyPage = () => {
-  // const data = useStaticQuery(
-  //   graphql`
-  //     query GET_HOURLY {
-  //       allWeather {
-  //         weatherForecast(city: "Kansas City") {
-  //           list {
-  //             main {
-  //               minTempC
-  //               maxTempC
-  //               feelsLikeC
-  //             }
-  //             dateText
-  //             precipProbability
-  //           }
-  //         }
-  //       }
-  //     }
-  //   `
-  // )
+  const { data, error } = useSWR(
+    `{
+      weatherForecast(city: "Kansas City") {
+        list {
+          main {
+            minTempC
+            maxTempC
+            feelsLikeC
+          }
+          dateText
+          precipProbability
+        }
+      }
+    }
+    `,
+    fetcher
+  );
+  console.log(data + " hourly" + error);
   return (
     <>
       <SimpleGrid
