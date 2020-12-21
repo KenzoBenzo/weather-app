@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/sidebar";
 import DailyCard from "../components/daily-card";
+import HighlightCard from "../components/highlight-card";
 import {
 	Box,
 	SimpleGrid,
@@ -8,7 +9,6 @@ import {
 	Text,
 	Flex,
 	Stack,
-	Progress,
 	useColorMode,
 } from "@chakra-ui/react";
 import { GET_WEATHER } from "../../graphql";
@@ -16,59 +16,26 @@ import { GraphQLClient } from "graphql-request";
 import useSWR from "swr";
 import { SunIcon } from "@chakra-ui/icons";
 
-type HighlightCardProps = {
-	condition: string;
-	value: number;
-	label: string;
-	children?: React.ReactNode;
-};
-
-const HighlightCard = ({
-	condition,
-	value,
-	label,
-	children,
-}: HighlightCardProps) => {
-	const { colorMode } = useColorMode();
-	return (
-		<>
-			<Box
-				bg={colorMode === "light" ? "gray.100" : "gray.800"}
-				rounded="lg"
-				p={4}
-			>
-				<Text textAlign="center">{condition}</Text>
-				<Stack isInline justifyContent="center" alignItems="baseline" mt={2}>
-					<Text fontWeight={700} fontSize="64px">
-						{value}
-					</Text>
-					<Text fontSize="32px">{label}</Text>
-				</Stack>
-				<Flex justifyContent="center" mt={2}>
-					{children}
-				</Flex>
-				{label === "%" ? (
-					<Box maxW="80%" mx="auto">
-						<Stack isInline justify="space-between">
-							<Text>0</Text>
-							<Text>50</Text>
-							<Text>100</Text>
-						</Stack>
-						<Progress
-							value={value}
-							color="blue"
-							backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}
-							borderRadius="sm"
-						/>
-						<Flex justify="flex-end">
-							<Text>%</Text>
-						</Flex>
-					</Box>
-				) : null}
-			</Box>
-		</>
-	);
-};
+{
+	/* Direction and it's degrees
+	N 348.75 - 11.25
+	NNE 11.25 - 33.75
+	NE 33.75 - 56.25
+	ENE 56.25 - 78.75
+	E 78.75 - 101.25
+	ESE 101.25 - 123.75
+	SE 123.75 - 146.25
+	SSE 146.25 - 168.75
+	S 168.75 - 191.25
+	SSW 191.25 - 213.75
+	SW 213.75 - 236.25
+	WSW 236.25 - 258.75
+	W 258.75 - 281.25
+	WNW 281.25 - 303.75
+	NW 303.75 - 326.25
+	NNW 326.25 - 348.75
+*/
+}
 
 const Home = () => {
 	const { colorMode } = useColorMode();
@@ -133,6 +100,14 @@ const Home = () => {
 	let inThreeDaysGroup = getGroup(inThreeDays);
 	let inFourDaysGroup = getGroup(inFourDays);
 
+	// Function to prettify the date output
+	const prettyDate = (date: Date) => {
+		return date.toLocaleString("default", {
+			month: "short",
+			day: "numeric",
+		});
+	};
+
 	// First entry for each day
 	// TODO: Upgrade this to be an array with the real min and max of a certain day
 	let nextFiveDays = [
@@ -163,30 +138,15 @@ const Home = () => {
 							key={index}
 							day={
 								index === 0
-									? today.toLocaleString("default", {
-											month: "short",
-											day: "numeric",
-									  })
+									? prettyDate(today)
 									: index === 1
-									? tomorrow.toLocaleString("default", {
-											month: "short",
-											day: "numeric",
-									  })
+									? prettyDate(tomorrow)
 									: index === 2
-									? inTwoDays.toLocaleString("default", {
-											month: "short",
-											day: "numeric",
-									  })
+									? prettyDate(inTwoDays)
 									: index === 3
-									? inThreeDays.toLocaleString("default", {
-											month: "short",
-											day: "numeric",
-									  })
+									? prettyDate(inThreeDays)
 									: index === 4
-									? inFourDays.toLocaleString("default", {
-											month: "short",
-											day: "numeric",
-									  })
+									? prettyDate(inFourDays)
 									: ""
 							}
 							image="https://media.graphcms.com/2tpG5s0MQnq0uxSxJkXS"
