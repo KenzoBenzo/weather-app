@@ -10,11 +10,12 @@ import {
 	Flex,
 	Stack,
 	useColorMode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import { GET_WEATHER } from "../../graphql";
 import { GraphQLClient } from "graphql-request";
 import useSWR from "swr";
-import { SunIcon } from "@chakra-ui/icons";
+import { WindIcon } from "../../theme/icons";
 
 {
 	/* Direction and it's degrees
@@ -171,13 +172,17 @@ const Home = () => {
 						<Stack isInline alignItems="center">
 							<Box
 								size="32px"
-								backgroundColor="gray.700"
+								p={1}
+								backgroundColor={useColorModeValue("gray.200", "gray.700")}
 								rounded="full"
 								display="flex"
 								justifyContent="center"
 								alignItems="center"
+								style={{
+									rotate: `${data.weatherForecast.list[0].wind.deg}deg`,
+								}}
 							>
-								<SunIcon />
+								<WindIcon boxSize={4} />
 							</Box>
 							<Text>WSW</Text>
 						</Stack>

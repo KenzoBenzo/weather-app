@@ -17,7 +17,8 @@ import {
 	Input,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { AddIcon, MoonIcon, SunIcon, ViewIcon } from "@chakra-ui/icons";
+import { CompassIcon, PinIcon } from "../../theme/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 type SidebarProps = {
 	celciusTemperature: number;
@@ -108,7 +109,7 @@ const Sidebar = ({
 					color="gray.500"
 					alignItems="center"
 				>
-					<ViewIcon />
+					<PinIcon />
 					<Text>{cityName}</Text>
 				</Stack>
 			</Box>
@@ -127,8 +128,9 @@ const Sidebar = ({
 							colorScheme="blue"
 							variant="ghost"
 							aria-label="Search database"
+							isDisabled
 						>
-							<AddIcon mr={2} />
+							<CompassIcon mr={2} />
 							my location
 						</Button>
 						<DrawerCloseButton />

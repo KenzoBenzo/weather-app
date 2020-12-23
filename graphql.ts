@@ -20,6 +20,7 @@ export const GET_WEATHER = gql`
 				}
 				wind {
 					speed
+					deg
 				}
 				visibility
 			}
